@@ -1,0 +1,102 @@
+
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>코딩 마피아 게임</title>
+  <link rel="stylesheet" href="/style.css"/>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>코딩 마피아 게임 (16인)</h1>
+      <div id="you"></div>
+    </header>
+
+    <section class="controls">
+      <input id="nameInput" placeholder="닉네임 입력" maxlength="20"/>
+      <button id="setNameBtn">닉네임 설정</button>
+      <button id="readyBtn">준비</button>
+      <button id="startBtn" class="host-only">호스트 시작</button>
+      <button id="advanceBtn" class="host-only">다음 단계로</button>
+    </section>
+
+    <section class="status">
+      <div>Phase: <span id="phase">-</span></div>
+      <div>Day: <span id="dayCount">0</span></div>
+      <div>프로젝트 진행률: <progress id="progress" max="100" value="0"></progress> <span id="progressText">0%</span></div>
+      <div id="sabotageBox" class="hidden">
+        <strong>사보타주 진행중!</strong>
+        <div>목표: <span id="sabGoal"></span> / 진행: <span id="sabProg"></span></div>
+        <div>마감까지: <span id="sabTimer"></span>초</div>
+      </div>
+    </section>
+
+    <section class="players">
+      <h2>플레이어</h2>
+      <ul id="playerList"></ul>
+    </section>
+
+    <section class="phase-area">
+      <div id="lobbyArea" class="card">로비: 모두 준비하면 호스트가 시작!</div>
+
+      <div id="sprintArea" class="card hidden">
+        <h3>스프린트(낮)</h3>
+        <button id="reqTaskBtn">작업 카드 받기</button>
+        <div id="taskBox" class="hidden">
+          <div id="taskPrompt"></div>
+          <div id="taskChoices"></div>
+        </div>
+        <div class="mafia-only">
+          <button id="sabotageBtn">사보타주 트리거(마피아)</button>
+        </div>
+      </div>
+
+      <div id="sabotageArea" class="card hidden">
+        <h3>사보타주 복구</h3>
+        <p>빠른 OX 문제를 맞혀서 진행도를 채우세요.</p>
+        <button id="sabTrue">정답(O)</button>
+        <button id="sabFalse">오답(X)</button>
+      </div>
+
+      <div id="nightArea" class="card hidden">
+        <h3>밤(리뷰)</h3>
+        <div class="role-row">
+          <div class="role-card">
+            <h4>마피아: 제거 대상 선택</h4>
+            <select id="killTarget"></select>
+            <button id="killBtn">제거</button>
+          </div>
+          <div class="role-card">
+            <h4>의사: 보호 대상 선택</h4>
+            <select id="protectTarget"></select>
+            <button id="protectBtn">보호</button>
+          </div>
+          <div class="role-card">
+            <h4>경찰: 조사 대상 선택</h4>
+            <select id="investTarget"></select>
+            <button id="investBtn">조사</button>
+          </div>
+        </div>
+        <div id="investResult"></div>
+      </div>
+
+      <div id="meetingArea" class="card hidden">
+        <h3>회의/투표</h3>
+        <select id="voteTarget"></select>
+        <button id="voteBtn">투표</button>
+        <p>동률이면 추방 없음.</p>
+      </div>
+    </section>
+
+    <section class="logs">
+      <h2>로그</h2>
+      <ul id="logList"></ul>
+    </section>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/client.js"></script>
+</body>
+</html>
